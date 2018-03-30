@@ -1,7 +1,7 @@
-<nav class="navbar fixed-top navbar-expand-sm navbar navbar-dark" style="background-color: #0fad19;">
+<nav class="navbar fixed-top navbar-expand-sm navbar navbar-dark" style="background-color: #4991ad;">
     <div class="container">
 
-        <a class="navbar-brand" href="{{ path('home') }}">Work for employees</a>
+        <a class="navbar-brand" href="{{ path('home') }}"><b>JOB.UA</b><br><small><i>for employees</i></s></small></a>
 
         <div class="collapse navbar-collapse">
             <ul class="navbar-nav mr-auto">
@@ -12,10 +12,13 @@
                     <a class="nav-link" href="{{ path('create_resume') }}">Create resume</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ path('profile') }}">Profile</a>
+                    <a class="nav-link" href="{{ path('login') }}">LogIn</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" style="color: darkblue" href="{{ path('home_employer') }}">To Employer</a>
+                    <a class="nav-link" href="{{ path('registration') }}">Registration</a>
+                </li>
+                <li class="nav-item">
+                    <b><a class="nav-link" href="{{ path('home_employer') }}">To Employer ></a></b>
                 </li>
             </ul>
         </div>

@@ -1,0 +1,33 @@
+easy_admin:
+    site_name: 'JOB.UA'
+    entities:
+        # List the entity class name you want to manage
+        User:
+            class: App\Entity\User
+            list:
+                fields:
+                - { property: 'name' }
+                - { property: 'lastName' }
+                - { property: 'email' }
+                - { property: 'status' }
+                - { property: 'isActive' }
+                - { property: 'birthDay' }
+                - { property: 'roles' }
+                - { property: 'image', type: 'image', base_path: '%app.path.user_images%' }
+            show:
+                fields:
+                    - { property: 'image', type: 'image', base_path: '%app.path.user_images%' }
+            form:
+                fields:
+                - { property: 'name' }
+                - { property: 'lastName' }
+                - { property: 'email' }
+                - { property: 'status' }
+                - { property: 'isActive' }
+                - { property: 'birthDay', type: 'birthday' }
+                - { property: 'roles' }
+                - { property: 'imageFile', type: 'vich_image' }
+        Role:
+            class: App\Entity\Role
+        City:
+            class: App\Entity\City

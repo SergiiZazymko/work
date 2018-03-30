@@ -6,11 +6,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>{% block title %}Work{% endblock %}</title>
+    <title>{% block title %}Job.ua{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <link rel="stylesheet" href="/build/css/custom-styles.css" />
+    <link rel="stylesheet" href="{{ asset('/assets/css/custom-styles.css') }}" />
     {% block stylesheets %}{% endblock %}
 
 
@@ -20,7 +20,11 @@
 
 <header>
     {% block navbar %}
-        {% if (app.session.get('userType')) == 'worker' %}
+        {% if is_granted('IS_AUTHENTICATED_FULLY') and (app.session.get('userType')) == 'worker' %}
+            {{ include('navbar/worker_logged.html.twig') }}
+        {% elseif is_granted('IS_AUTHENTICATED_FULLY') and (app.session.get('userType')) == 'employer' %}
+            {{ include('navbar/employer_logged.html.twig') }}
+        {% elseif (app.session.get('userType')) == 'worker' %}
             {{ include('navbar/worker.html.twig') }}
         {% elseif (app.session.get('userType')) == 'employer' %}
             {{ include('navbar/employer.html.twig') }}
@@ -30,7 +34,7 @@
 
 
 <main role="main" class="container main">
-    {#{% include('flash_messages.html.twig') %}#}
+    {% include('flash/flash_messages.html.twig') %}
     {% block body %}{% endblock %}
 </main>
 

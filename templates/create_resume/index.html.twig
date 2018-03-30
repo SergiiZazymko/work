@@ -1,20 +1,87 @@
 {% extends 'base.html.twig' %}
+{% form_theme form 'bootstrap_4_layout.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}JOB.UA | Create resume{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    {{ form_start(form) }}
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>src/Controller/CreateResumeController.php</code></li>
-        <li>Your template at <code>templates/create_resume/index.html.twig</code></li>
-    </ul>
-</div>
+        <h2>Main information</h2>
+        {{ form_errors(form) }}
+        {{ form_row(form.position) }}
+        {{ form_row(form.city) }}
+        {{ form_row(form.phone) }}
+        {{ form_row(form.employmentType) }}
+        {{ form_row(form.salary) }}
+
+        <h2>Last work place</h2>
+        {{ form_label(form.workCompany, 'Company name') }}
+        {{ form_errors(form.workCompany) }}
+        {{ form_widget(form.workCompany) }}
+        <br>
+        {{ form_label(form.workCity, 'City') }}
+        {{ form_errors(form.workCity) }}
+        {{ form_widget(form.workCity) }}
+        <br>
+        {{ form_label(form.workPosition, 'Position') }}
+        {{ form_errors(form.workPosition) }}
+        {{ form_widget(form.workPosition) }}
+        <br>
+        <br><h5>Work time</h5>
+        {{ form_label(form.workStart, 'From') }}
+        {{ form_errors(form.workStart) }}
+        {{ form_widget(form.workStart) }}
+        <br>
+        {{ form_label(form.workFinish, 'To') }}
+        {{ form_errors(form.workFinish) }}
+        {{ form_widget(form.workFinish) }}
+        <br>
+        {{ form_label(form.workDescription, 'Description') }}
+        {{ form_errors(form.workDescription) }}
+        {{ form_widget(form.workDescription) }}
+        <br>
+
+
+        <h2>Education</h2>
+        {{ form_row(form.educationType) }}
+
+        {{ form_label(form.educationInstitution, 'Institution') }}
+        {{ form_errors(form.educationInstitution) }}
+        {{ form_widget(form.educationInstitution) }}
+        <br>
+        {{ form_label(form.educationSpeciality, 'Speciality') }}
+        {{ form_errors(form.educationSpeciality) }}
+        {{ form_widget(form.educationSpeciality) }}
+        <br>
+        {{ form_label(form.educationCity, 'City') }}
+        {{ form_errors(form.educationCity) }}
+        {{ form_widget(form.educationCity) }}
+        <br>
+        <br><h5>Education time</h5>
+        {{ form_label(form.educationStart, 'From') }}
+        {{ form_errors(form.educationStart) }}
+        {{ form_widget(form.educationStart) }}
+        <br>
+        {{ form_label(form.educationFinish, 'To') }}
+        {{ form_errors(form.educationFinish) }}
+        {{ form_widget(form.educationFinish) }}
+        <br>
+        {{ form_label(form.educationDescription, 'Description') }}
+        {{ form_errors(form.educationDescription) }}
+        {{ form_widget(form.educationDescription) }}
+        <br>
+
+        <h2>Additional information</h2>
+        {{ form_label(form.additionlInfo, 'Additional information') }}
+        {{ form_errors(form.additionlInfo) }}
+        {{ form_widget(form.additionlInfo) }}
+        <br>
+        {{ form_label(form.isAvailable, 'Show resume on site') }}
+        {{ form_errors(form.isAvailable) }}
+        {{ form_widget(form.isAvailable) }}
+
+        <input type="submit" class="btn btn-primary" value="Save">
+    {{ form_end(form) }}
+
 {% endblock %}

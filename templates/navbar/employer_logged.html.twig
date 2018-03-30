@@ -1,0 +1,26 @@
+<nav class="navbar fixed-top navbar-expand-sm navbar navbar-dark" style="background-color: #ad0c99;">
+    <div class="container">
+
+        <a class="navbar-brand" href="{{ path('home_employer') }}"><b>JOB.UA</b><br><small><i>for employers</i></small></a>
+
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('find_resume') }}">Find resume</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('create_vacancy') }}">Create vacancy</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('profile') }}">Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ path('logout') }}">LogOut</a>
+                </li>
+                <li class="nav-item">
+                    <b><a class="nav-link" href="{{ path('home') }}">To Employee >  </a></b>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
