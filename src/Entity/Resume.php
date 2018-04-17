@@ -127,9 +127,14 @@ class Resume
      */
     private $isAvailable;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="User", inversedBy="resumes")
+     */
+    private $user;
+
     public function __toString()
     {
-        return $this->id;
+        return $this->position . ' - ' . $this->employmentType;// . ($this->isAvailable ? ' (available)' : ' (not available)'); // . '(created) :' . $this->crated;
     }
 
     /**
@@ -466,5 +471,21 @@ class Resume
     public function setIsAvailable($isAvailable): void
     {
         $this->isAvailable = $isAvailable;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    /**
+     * @param mixed $owner
+     */
+    public function setUser($user): void
+    {
+        $this->user = $user;
     }
 }

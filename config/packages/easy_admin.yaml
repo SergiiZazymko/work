@@ -29,5 +29,11 @@ easy_admin:
                 - { property: 'imageFile', type: 'vich_image' }
         Role:
             class: App\Entity\Role
+        Resume:
+            class: App\Entity\Resume
+        EducationType:
+            class: App\Entity\EducationType
+        EmploymentType:
+            class: App\Entity\EmploymentType
         City:
             class: App\Entity\City

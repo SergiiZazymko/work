@@ -1,0 +1,18 @@
+{% extends 'base.html.twig' %}
+{% form_theme  form 'bootstrap_4_layout.html.twig' %}
+
+{% block title %}JOB.UA | Edit user data{% endblock %}
+
+{% block body %}
+    <div class="form-control">
+        {{ form_start(form) }}
+{#          {{ form_errors(form) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.birthDay) }}
+            {{ form_row(form.email) }}#}
+            {{ form_widget(form) }}
+            <input type="submit" class="btn btn-primary" value="Save">
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

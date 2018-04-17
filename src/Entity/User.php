@@ -93,9 +93,15 @@ class User implements UserInterface
      */
     private $updatedAt;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Resume", mappedBy="ow")
+     */
+    private $resumes = [];
+
     public function __construct()
     {
         $this->isActive = true;
+//        $this->resumes = new ArrayCollection();
     }
 
     public function getSalt()
@@ -204,7 +210,7 @@ class User implements UserInterface
      */
     public function getRoles()
     {
-        return [(string)    $this->roles];
+        return [(string) $this->roles];
     }
 
     /**
@@ -341,6 +347,22 @@ class User implements UserInterface
 
     public function __toString()
     {
-        return $this->email;
+        return $this->name . ' ' . $this->lastName;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getResumes()
+    {
+        return $this->resumes;
+    }
+
+    /**
+     * @param mixed $resumes
+     */
+    public function addResume($resume): void
+    {
+        $this->resumes[] = $resume;
     }
 }

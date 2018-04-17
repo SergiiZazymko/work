@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\RoleRepository;
-use App\Repository\UserRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -13,6 +12,7 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 class RegistrationController extends Controller
 {
@@ -34,12 +34,11 @@ class RegistrationController extends Controller
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $email = $user->getEmail();
-
+//            $email = $user->getEmail();
+//
 //            if ($userRepository->findOneByEmail($email)) {
 //                $this->addFlash('danger', "Email $email already exists");
 //                return $this->redirectToRoute('registration');
-//                die;
 //            }
 
             if ($session->get('userType') == 'worker') {

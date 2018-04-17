@@ -8,15 +8,16 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20180325173609 extends AbstractMigration
+class Version20180404123518 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('CREATE TABLE app_user (id INT AUTO_INCREMENT NOT NULL, roles_id INT DEFAULT NULL, username VARCHAR(25) NOT NULL, password VARCHAR(64) NOT NULL, email VARCHAR(254) NOT NULL, is_active TINYINT(1) NOT NULL, UNIQUE INDEX UNIQ_88BDF3E9F85E0677 (username), UNIQUE INDEX UNIQ_88BDF3E9E7927C74 (email), INDEX IDX_88BDF3E938C751C4 (roles_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('ALTER TABLE app_user ADD CONSTRAINT FK_88BDF3E938C751C4 FOREIGN KEY (roles_id) REFERENCES role (id)');
+        $this->addSql('ALTER TABLE resume ADD owner_id INT DEFAULT NULL');
+        $this->addSql('ALTER TABLE resume ADD CONSTRAINT FK_60C1D0A07E3C61F9 FOREIGN KEY (owner_id) REFERENCES app_user (id)');
+        $this->addSql('CREATE INDEX IDX_60C1D0A07E3C61F9 ON resume (owner_id)');
     }
 
     public function down(Schema $schema)
@@ -24,6 +25,8 @@ class Version20180325173609 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('DROP TABLE app_user');
+        $this->addSql('ALTER TABLE resume DROP FOREIGN KEY FK_60C1D0A07E3C61F9');
+        $this->addSql('DROP INDEX IDX_60C1D0A07E3C61F9 ON resume');
+        $this->addSql('ALTER TABLE resume DROP owner_id');
     }
 }

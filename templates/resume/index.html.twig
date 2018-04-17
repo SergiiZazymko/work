@@ -1,20 +1,46 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello {{ controller_name }}!{% endblock %}
+{% block title %}JOB.UA | {{ resume }}{% endblock %}
 
 {% block body %}
-<style>
-    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
-    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
-</style>
 
-<div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
+    <div class="card text-center">
+        <div class="card-header" align="left">
+            <h1>{{ resume.user }}</h1>
+            <img src="/uploads/images/users/{{ resume.user.image }}" width="10%">
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code>src/Controller/ResumeController.php</code></li>
-        <li>Your template at <code>templates/resume/index.html.twig</code></li>
-    </ul>
-</div>
+        </div>
+        <div class="card-body" align="left">
+            <h2>{{ resume }}</h2>
+            <h4>Main information</h4>
+            {{ resume.position }}<br>
+            {{ resume.city }}<br>
+            {{ resume.phone }}<br>
+            {{ resume.employmentType }}<br>
+            {{ resume.salary }}<br>
+
+            <br><h4>Last work place</h4>
+            {{ resume.workCompany }}<br>
+            {{ resume.workCity }}<br>
+            {{ resume.workPosition }}<br>
+            {{ resume.workStart.format('m.Y') }} - {{ resume.workFinish.format('m.Y') }}<br>
+            {{ resume.workDescription }}<br>
+
+
+            <br><h4>Education</h4>
+            {{ resume.educationType }}<br>
+            {{ resume.educationInstitution }}<br>
+            {{ resume.educationSpeciality }}<br>
+            {{ resume.educationCity }}<br>
+            {{ resume.educationStart.format('m.Y') }} - {{ resume.educationFinish.format('m.Y') }}<br>
+            {{ resume.educationDescription }}<br>
+
+            <br><h4>Additional information</h4>
+            {{ resume.additionlInfo }}<br>
+        </div>
+        <div class="card-footer text-muted">
+            {#<a href="{{ path('edit_user', {'id' : app.user.id}) }}">Edit user data</a>#}
+        </div>
+    </div>
+
 {% endblock %}
