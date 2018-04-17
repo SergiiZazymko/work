@@ -48,7 +48,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(name="is_active", type="boolean")
      */
-    private $isActive;
+    private $isActive = true;
 
     /**
      * @ORM\ManyToOne(targetEntity="Role", inversedBy="users")
@@ -75,7 +75,7 @@ class User implements UserInterface
     /**
      * @ORM\Column(type="smallint")
      */
-    private $status;
+    private $status = 0;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -98,9 +98,14 @@ class User implements UserInterface
      */
     private $resumes = [];
 
+    /**
+     * @ORM\Column(type="string", length=20)
+     */
+    private $token;
+
     public function __construct()
     {
-        $this->isActive = true;
+//        $this->isActive = true;
 //        $this->resumes = new ArrayCollection();
     }
 
@@ -239,10 +244,6 @@ class User implements UserInterface
     public function setName($name): void
     {
         $this->name = $name;
-
-        if ($this->name) {
-            $this->setStatus(0);
-        }
     }
 
     /**
@@ -364,5 +365,21 @@ class User implements UserInterface
     public function addResume($resume): void
     {
         $this->resumes[] = $resume;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getToken()
+    {
+        return $this->token;
+    }
+
+    /**
+     * @param mixed $token
+     */
+    public function setToken($token): void
+    {
+        $this->token = $token;
     }
 }

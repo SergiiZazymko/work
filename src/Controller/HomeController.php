@@ -13,8 +13,12 @@ class HomeController extends Controller
      */
     public function index(SessionInterface $session)
     {
+        if ($this->getUser() && $this->getUser()->getStatus() == 0) {
+            $this->addFlash('success', 'You did not confirm your email');
+            return $this->redirectToRoute('logout');
+        }
         $session->set('userType', 'worker');
-        dump($session);
+        //dump($session);
         return $this->render('home/index.html.twig');
     }
 }

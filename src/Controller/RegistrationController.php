@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\User;
 use App\Form\UserType;
 use App\Repository\RoleRepository;
+use App\Repository\UserRepository;
 use Doctrine\DBAL\Exception\UniqueConstraintViolationException;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,10 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class RegistrationController extends Controller
 {
+    const SUCCESS_REGISTER_MESSAGE = 'Thank you for registration. Email with confirmation link was sent to your mailbox';
+    const EMAIL_CONFIRM_MESSAGE = 'Thank you! Your email was successfully confirmed. Now you can login';
+    const NOT_VALID_TOKEN_MESSAGE = 'This token is not valid';
+
     /**
      * @Route("/registration", name="registration")
      */
@@ -49,16 +54,19 @@ class RegistrationController extends Controller
 
             $user->setRoles($role);
             $user->setPassword($passwordEncoder->encodePassword($user, $user->getPlainPassword()));
+            $token = bin2hex(openssl_random_pseudo_bytes(10));
+            $user->setToken($token);
 
             try {
                 $entityManager->persist($user);
                 $entityManager->flush();
             } catch (UniqueConstraintViolationException $e) {
+                $email = $user->getEmail();
                 $this->addFlash('danger', "Email $email already exists");
                 return $this->redirectToRoute('registration');
             }
 
-            $this->addFlash('success', 'Thank you for registration');
+            $this->addFlash('success', self::SUCCESS_REGISTER_MESSAGE);
 
             if ($session->get('userType') == 'worker') {
                 return $this->redirectToRoute('home');
@@ -70,5 +78,28 @@ class RegistrationController extends Controller
         return $this->render('registration/index.html.twig', [
             'form' => $form->createView(),
         ]);
+    }
+
+    /**
+     * @Route("/confirmation", name="confirmation")
+     */
+    public function confirmation(
+        EntityManagerInterface $entityManager,
+        UserRepository $userRepository,
+        Request $reauest
+    )
+    {
+        $tokenFormQuery = $reauest->query->get('token');
+        $user = $userRepository->findOneByToken($tokenFormQuery);
+
+        if (!$user) {
+            throw $this->createNotFoundException(self::NOT_VALID_TOKEN_MESSAGE);
+        }
+
+        $user->setStatus(1);
+        $entityManager->persist($user);
+        $entityManager->flush();
+        $this->addFlash('success', self::EMAIL_CONFIRM_MESSAGE);
+        return $this->redirectToRoute('login');
     }
 }
